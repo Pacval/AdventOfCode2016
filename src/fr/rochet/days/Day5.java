@@ -42,10 +42,12 @@ public class Day5 implements DayInterface {
     public void part2() throws NoSuchAlgorithmException {
         String input = "ffykfhsq";
 
-        HashMap<Integer, Character> passwordBuilder = new HashMap<>();
+        System.out.println("\n\nSearching for the second password :");
+
+        StringBuilder passwordBuilder = new StringBuilder("________");
         int index = 0;
 
-        while (passwordBuilder.size() < 8) {
+        while (passwordBuilder.indexOf("_") >= 0) {
 
             String stringToHash = input + index;
             MessageDigest messageDigest = MessageDigest.getInstance("MD5");
@@ -56,8 +58,9 @@ public class Day5 implements DayInterface {
             if (hashedOutput.substring(0, 5).equals("00000")) {
                 try {
                     int pos = Integer.parseInt(String.valueOf(hashedOutput.charAt(5)));
-                    if (pos >= 0 && pos < 8) {
-                        passwordBuilder.putIfAbsent(pos, hashedOutput.charAt(6));
+                    if (pos >= 0 && pos < 8 && passwordBuilder.charAt(pos) == '_') {
+                        passwordBuilder.setCharAt(pos, hashedOutput.charAt(6));
+                        System.out.println(passwordBuilder.toString());
                     }
                 } catch (NumberFormatException ignored) {
                 }
@@ -65,10 +68,6 @@ public class Day5 implements DayInterface {
             index++;
         }
 
-        String password = StringUtils.join(
-                passwordBuilder.entrySet().stream().sorted(Map.Entry.comparingByKey())
-                .map(Map.Entry::getValue)
-                .collect(Collectors.toList()), "");
-        System.out.println("The second password is : " + password);
+        System.out.println("The second password is : " + passwordBuilder.toString());
     }
 }
