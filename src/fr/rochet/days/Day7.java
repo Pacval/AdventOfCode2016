@@ -3,7 +3,6 @@ package fr.rochet.days;
 import fr.rochet.DayInterface;
 import fr.rochet.ExoUtils;
 
-import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -62,6 +61,5 @@ public class Day7 implements DayInterface {
         }
 
         System.out.println("Number of IPs supporting SSL : " + nbIpSupportingSsl);
-
     }
 }
